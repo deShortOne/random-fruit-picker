@@ -46,6 +46,7 @@ bool Fruit::isValueWithinRange(const uint32_t value) const noexcept
 // main cpp file
 void printAllFruits(const std::vector<Fruit> &listOfFruits) noexcept;
 Fruit &getFruitFromValue(std::vector<Fruit> &listOfFruits, uint32_t value);
+static bool concurrentMode = true;
 
 int main()
 {
@@ -61,13 +62,33 @@ int main()
     int totalNumberOfFruits = 100;
 
     int numberOfIterations = 15;
+    std::thread threads[numberOfIterations];
+    auto func = [](int valuePicked, Fruit &fruit) -> void
+    {
+        printf("Value is %d, which is the fruit %s, which has now been called %d times\n",
+               valuePicked, fruit.getName().c_str(), fruit.addOneToRunningTotal());
+    };
     for (int i = 0; i < numberOfIterations; i++)
     {
         int valuePicked = rand() % totalNumberOfFruits;
         Fruit &fruit = getFruitFromValue(listOfFruits, valuePicked);
 
-        printf("Value is %d, which is the fruit %s, which has now been called %d times\n",
-               valuePicked, fruit.getName().c_str(), fruit.addOneToRunningTotal());
+        if (concurrentMode)
+        {
+            threads[i] = std::thread(func, valuePicked, std::ref(fruit));
+        }
+        else
+        {
+            func(valuePicked, fruit);
+        }
+    }
+
+    if (concurrentMode)
+    {
+        for (int i = 0; i < numberOfIterations; i++)
+        {
+            threads[i].join();
+        }
     }
 
     printAllFruits(listOfFruits);
