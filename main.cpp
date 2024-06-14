@@ -1,8 +1,10 @@
 #include <iostream>
+#include <chrono>
 #include <limits>
 #include <random>
 #include <sstream>
 #include <string>
+#include <thread>
 #include <vector>
 
 // would be in seperate files with header and cpp file
@@ -32,6 +34,7 @@ Fruit::Fruit(const std::string &name,
 uint32_t Fruit::addOneToRunningTotal() noexcept
 {
     m_runningTotal++;
+    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::seconds(1));
     return m_runningTotal;
 }
 
