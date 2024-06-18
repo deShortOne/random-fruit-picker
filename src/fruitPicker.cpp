@@ -1,64 +1,20 @@
-#include <iostream>
-#include <chrono>
-#include <limits>
-#include <random>
-#include <sstream>
-#include <string>
-#include <thread>
 #include <vector>
+#include <string>
+#include <iostream>
 
-// would be in seperate files with header and cpp file
-class Fruit // should be named item or something more generic
+#include "fruitPicker.h"
+
+void run()
 {
-public:
-    Fruit(const std::string &name, const uint32_t minRange, const uint32_t maxRange);
-    uint32_t getRunningTotal() const noexcept { return m_runningTotal; }
-    uint32_t addOneToRunningTotal() noexcept; // not a great name as in future you might want to add 2 or 1000
-    bool isValueWithinRange(const uint32_t value) const noexcept;
-    const std::string &getName() const noexcept { return m_name; }
+    std::vector<Fruit> listOfFruits;
+    listOfFruits.push_back(Fruit("Seven", 0, 9));
+    listOfFruits.push_back(Fruit("Bell", 10, 24));
+    listOfFruits.push_back(Fruit("Melon", 25, 44));
+    listOfFruits.push_back(Fruit("Plum", 45, 69)); //:)
+    listOfFruits.push_back(Fruit("Orange", 70, 84));
+    listOfFruits.push_back(Fruit("Lemon", 85, 94));
+    listOfFruits.push_back(Fruit("Cherry", 95, 99));
 
-private:
-    const std::string m_name;
-    const uint32_t m_minRange;
-    const uint32_t m_maxRange; // inclusive
-    uint32_t m_runningTotal = 0;
-};
-
-// Fruit cpp file
-Fruit::Fruit(const std::string &name,
-             const uint32_t minRange,
-             const uint32_t maxRange) : m_name(name),
-                                        m_minRange(minRange),
-                                        m_maxRange(maxRange) {}
-
-uint32_t Fruit::addOneToRunningTotal() noexcept
-{
-    m_runningTotal++;
-    std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::seconds(1));
-    return m_runningTotal;
-}
-
-bool Fruit::isValueWithinRange(const uint32_t value) const noexcept
-{
-    return value >= m_minRange && value <= m_maxRange;
-}
-
-// main cpp file
-void printAllFruits(const std::vector<Fruit> &listOfFruits) noexcept;
-Fruit &getFruitFromValue(std::vector<Fruit> &listOfFruits, uint32_t value);
-static bool concurrentMode = true;
-
-int main()
-{
-    std::vector<Fruit> listOfFruits = {
-        Fruit("Seven", 0, 9),
-        Fruit("Bell", 10, 24),
-        Fruit("Melon", 25, 44),
-        Fruit("Plum", 45, 69), //:)
-        Fruit("Orange", 70, 84),
-        Fruit("Lemon", 85, 94),
-        Fruit("Cherry", 95, 99),
-    };
     int totalNumberOfFruits = 100;
 
     int numberOfIterations = 15;
