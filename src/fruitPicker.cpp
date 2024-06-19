@@ -18,7 +18,7 @@ void run()
     int totalNumberOfFruits = 100;
 
     int numberOfIterations = 15;
-    std::thread threadList[numberOfIterations];
+    std::vector<std::thread> threadList;
     auto func = [](int valuePicked, std::shared_ptr<Fruit> &fruit) -> void
     {
         printf("Value is %d, which is the fruit %s, which has now been called %d times\n",
@@ -31,7 +31,7 @@ void run()
 
         if (concurrentMode)
         {
-            threadList[i] = std::thread(func, valuePicked, std::ref(fruit));
+            threadList.push_back(std::thread(func, valuePicked, std::ref(fruit)));
         }
         else
         {
@@ -41,9 +41,9 @@ void run()
 
     if (concurrentMode)
     {
-        for (int i = 0; i < numberOfIterations; i++)
+        for (auto iter = threadList.begin(); iter < threadList.end(); iter++)
         {
-            threadList[i].join();
+            iter->join();
         }
     }
 
