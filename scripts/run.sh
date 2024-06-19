@@ -1,3 +1,3 @@
 #! /bin/sh
 
-./build/Random_Fruits --concurrency=true
+./build/Random_Fruits --concurrency=true --uiNum=2

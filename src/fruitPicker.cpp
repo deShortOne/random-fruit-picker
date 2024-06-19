@@ -7,9 +7,11 @@
 void run(int argc, char *argv[])
 {
     bool concurrentMode;
+    int numUI;
     cxxopts::Options options("Random fruit", "Picks a random fruit given a set probability");
-    options.add_options() //
-        ("c,concurrency", "Enable concurrency", cxxopts::value<bool>(concurrentMode)->default_value("true"));
+    options.add_options()                                                                                    //
+        ("c,concurrency", "Enable concurrency", cxxopts::value<bool>(concurrentMode)->default_value("true")) //
+        ("uiNum", "Number of interactions at the end of the program", cxxopts::value<int>(numUI)->default_value("3"));
     options.parse(argc, argv);
 
     std::vector<std::shared_ptr<Fruit>> listOfFruits;
@@ -57,7 +59,7 @@ void run(int argc, char *argv[])
 
     // below is not needed for brief
     int n;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < numUI; i++)
     {
         std::cout << "Enter a number between 0 to " << totalNumberOfFruits << " exclusive to select a fruit: ";
         std::cin >> n;
