@@ -6,19 +6,20 @@
 
 void run(int argc, char *argv[])
 {
+    bool concurrentMode;
     cxxopts::Options options("Random fruit", "Picks a random fruit given a set probability");
     options.add_options() //
         ("c,concurrency", "Enable concurrency", cxxopts::value<bool>(concurrentMode)->default_value("true"));
     options.parse(argc, argv);
 
     std::vector<std::shared_ptr<Fruit>> listOfFruits;
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Seven", 0, 9)));
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Bell", 10, 24)));
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Melon", 25, 44)));
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Plum", 45, 69))); //:)
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Orange", 70, 84)));
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Lemon", 85, 94)));
-    listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Cherry", 95, 99)));
+    listOfFruits.push_back(std::make_shared<Fruit>("Seven", 0, 9));
+    listOfFruits.push_back(std::make_shared<Fruit>("Bell", 10, 24));
+    listOfFruits.push_back(std::make_shared<Fruit>("Melon", 25, 44));
+    listOfFruits.push_back(std::make_shared<Fruit>("Plum", 45, 69)); //:)
+    listOfFruits.push_back(std::make_shared<Fruit>("Orange", 70, 84));
+    listOfFruits.push_back(std::make_shared<Fruit>("Lemon", 85, 94));
+    listOfFruits.push_back(std::make_shared<Fruit>("Cherry", 95, 99));
 
     int totalNumberOfFruits = 100;
 
@@ -56,7 +57,7 @@ void run(int argc, char *argv[])
 
     // below is not needed for brief
     int n;
-    for (int i = 0; i < 0; i++)
+    for (int i = 0; i < 3; i++)
     {
         std::cout << "Enter a number between 0 to " << totalNumberOfFruits << " exclusive to select a fruit: ";
         std::cin >> n;
