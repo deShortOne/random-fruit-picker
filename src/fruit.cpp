@@ -11,9 +11,9 @@ Fruit::Fruit(const std::string &name,
 {
 }
 
-uint32_t Fruit::addOneToRunningTotal() noexcept
+uint32_t Fruit::addToRunningTotal(const uint32_t value) noexcept
 {
-    m_runningTotal++;
+    m_runningTotal += value;
     std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::seconds(1));
     return m_runningTotal;
 }

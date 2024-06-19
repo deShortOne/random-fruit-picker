@@ -22,7 +22,7 @@ void run()
     auto func = [](int valuePicked, Fruit &fruit) -> void
     {
         printf("Value is %d, which is the fruit %s, which has now been called %d times\n",
-               valuePicked, fruit.getName().c_str(), fruit.addOneToRunningTotal());
+               valuePicked, fruit.getName().c_str(), fruit.addToRunningTotal(1));
     };
     for (int i = 0; i < numberOfIterations; i++)
     {
@@ -71,7 +71,7 @@ void run()
         {
             Fruit &fruit = getFruitFromValue(listOfFruits, n);
             printf("You called fruit %s, which has now been called %d times\n",
-                   fruit.getName().c_str(), fruit.addOneToRunningTotal());
+                   fruit.getName().c_str(), fruit.addToRunningTotal(1));
         }
         std::cout << "\n";
     }
