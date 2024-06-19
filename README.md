@@ -3,8 +3,7 @@ Application to pick a random fruit given some probabilities and store the number
 
 ## To run
 ```bash
-cmake -S . -B build
-cd build
-make
-./Random_Fruits
+./scripts/configure.sh
+./scripts/build.sh
+./scripts/run.sh
 ```

@@ -1,3 +1,3 @@
 #! /bin/sh
 
-./build/Random_Fruits
+./build/Random_Fruits --concurrency=true

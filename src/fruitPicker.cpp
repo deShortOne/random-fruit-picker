@@ -4,8 +4,13 @@
 
 #include "fruitPicker.h"
 
-void run()
+void run(int argc, char *argv[])
 {
+    cxxopts::Options options("Random fruit", "Picks a random fruit given a set probability");
+    options.add_options() //
+        ("c,concurrency", "Enable concurrency", cxxopts::value<bool>(concurrentMode)->default_value("true"));
+    options.parse(argc, argv);
+
     std::vector<std::shared_ptr<Fruit>> listOfFruits;
     listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Seven", 0, 9)));
     listOfFruits.push_back(std::shared_ptr<Fruit>(new Fruit("Bell", 10, 24)));
