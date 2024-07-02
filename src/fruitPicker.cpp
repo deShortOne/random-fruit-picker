@@ -10,9 +10,15 @@ void run(int argc, char *argv[])
     int numUI;
     cxxopts::Options options("Random fruit", "Picks a random fruit given a set probability");
     options.add_options()                                                                                    //
+        ("h,help", "Help")                                                                                   //
         ("c,concurrency", "Enable concurrency", cxxopts::value<bool>(concurrentMode)->default_value("true")) //
         ("uiNum", "Number of interactions at the end of the program", cxxopts::value<int>(numUI)->default_value("3"));
-    options.parse(argc, argv);
+    auto result = options.parse(argc, argv);
+    if (result.count("help"))
+    {
+        std::cout << options.help() << std::endl;
+        return;
+    }
 
     std::vector<std::shared_ptr<Fruit>> listOfFruits;
     listOfFruits.push_back(std::make_shared<Fruit>("Seven", 0, 9));
